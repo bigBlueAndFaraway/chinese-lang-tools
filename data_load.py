@@ -60,24 +60,6 @@ def create_char_df(hsk_list):
     return df_chars
 
 
-def vocab_to_anki():
-    '''adds columns 'Pinyin + English' and 'Hanzi + Pinyin' to given dataset
-    for usage in anki-app as backside of cards'''
-    df_vocab = pd.read_excel('Full Vocab List.xlsx', usecols=['Hanzi', 'English', 'Pinyin'])
-    df_vocab['Pinyin + English'] = df_vocab.Pinyin + ' - ' + df_vocab.English
-    df_vocab['Hanzi + Pinyin'] = df_vocab.Hanzi + ' - ' + df_vocab.Pinyin
-
-    df_vocab.to_csv('Full Vocab List.csv', encoding='utf-8', index=False)
-
-
-def chars_to_anki():
-    '''adds column 'Pinyin + Definition' to given dataset for usage in
-    anki-app as backside of cards'''
-    df_vocab = pd.read_excel('Characters.xlsx', usecols=['Hanzi', 'Pinyin', 'Definition', 'HSK level'])
-    df_vocab['Pinyin + Definition'] = df_vocab.Pinyin + ' - ' + df_vocab.Definition
-    df_vocab.to_csv('Characters.csv', encoding='utf8', index=False)
-
-
 df_vocab = get_df_hsk()
 
 df_chars = create_char_df(df_vocab)
