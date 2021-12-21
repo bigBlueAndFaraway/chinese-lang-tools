@@ -27,5 +27,6 @@ def test_all(hsk):
     assert (hsk.filter_by_level(
         pd.Series(['好棒啊', '加班', '看法', '我们一起去厨房吧', '啤酒很难喝', '老师好'], name='Hanzi'),
         3)
-        == pd.Series(['加班', '看法', '啤酒很难喝', '老师好'], name='Hanzi')),\
+        == pd.Series(['加班', '看法', '啤酒很难喝', '老师好'], name='Hanzi')).all(),\
         'filter_by_level test failed'
+        
