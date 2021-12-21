@@ -9,38 +9,9 @@ Functions:
     filter_by_level(df_sentences, chars, level)
 '''
 import os
-import re
 import pandas as pd
 
-
-LEVEL = 3
-PATH = 'G:/My Drive/Chinesisch/HSK Sentences'
-ALT_PATH = 'G:/Meine Ablage/Chinesisch/HSK Sentences'
-
-
-def extract_hanzi_from_string(string):
-    '''filters out any western characters like english names from a given string'''
-    string = ''.join([a for a in string if a.isalnum()])
-    string = re.sub('[A-Za-z]+', '', string)
-
-    return string
-
-
-def assign_lvl_to_char(char, level, df_chars):
-    '''returns hsk level for a given character'''
-    try:
-        lvl = df_chars.loc[df_chars.Hanzi==char, 'HSK level'].reset_index(drop=True).iloc[0]
-    except:
-        lvl = level + 1
-
-    return lvl
-
-
-def assign_lvl_to_sentence(string, level, df_chars):
-    '''returns the hardest characters hsk level'''
-    lvl = max([assign_lvl_to_char(c, level, df_chars) for c in string])
-
-    return lvl
+level = 4
 
 def load_datasets(level, folderpath, alternative_folderpath=''):
     '''loads datasets in given folderpath and renames columns. specific to the
@@ -70,11 +41,12 @@ def load_datasets(level, folderpath, alternative_folderpath=''):
 
     return df_sentences, df_chars
 
+df_sentences = pd.read_excel('sentences/HSK {} Sentences.xlsx'.format(level))
 
 def filter_by_level(df_sentences, df_chars, level):
     '''filters df_sentences by the characters in chars that are in given level or lower
 
-    df_sentences: dataset with sentences. needs to have column called "Haknzi"
+    df_sentences: dataset with sentences. needs to have column called "Hanzi"
     df_chars: dataset containing characters for all levels. needs to have column called "HSK level"
     level
     '''
